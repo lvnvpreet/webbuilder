@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Wizard } from "./components/wizard";
 import { WebsiteFormData } from "./types/website-form";
 import toast from 'react-hot-toast';
-import { useMcpTool } from '@modelcontextprotocol/sdk';
 
 export default function App() {
   const [formData, setFormData] = React.useState<WebsiteFormData>({
@@ -27,20 +26,9 @@ export default function App() {
     }));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     console.log("Form submitted with data:", formData);
-    try {
-      const description = await useMcpTool({
-        server_name: 'ollama',
-        tool_name: 'generate_description',
-        arguments: { data: formData },
-      });
-      console.log('Generated description:', description);
-      toast.success('Your website configuration has been saved and a description has been generated.');
-    } catch (error) {
-      console.error('Error generating description:', error);
-      toast.error('Failed to generate description');
-    }
+    toast.success("Your website configuration has been saved.");
   };
 
   return (
